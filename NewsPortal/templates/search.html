@@ -1,0 +1,43 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+News
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим все новости -->
+{% block content %}
+
+<h1>Все новости</h1>
+<hr>
+
+<form method="GET">
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+</form>
+<hr>
+<style>
+    TABLE {border-collapse: collapse;}
+    TD, TH {border: 1px solid black;}
+</style>
+
+<table>
+    <thead>
+        <th>Заголовок</th>
+        <th>Автор</th>
+        <th>Дата публикации</th>
+        <th>Категория</th>
+        <th>Статья</th>
+    </thead>
+    {% for Post in filter.qs %}
+    <tr>
+        <td>{{ Post.title }}</td>
+        <td>{{ Post.author }}</td>
+        <td>{{ Post.dateCreation | date:'d M Y'}}</td>
+        <td>{{ Post.categoryType }}</td>
+        <td>{{ Post.text }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}
+
